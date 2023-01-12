@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather Today!</title>
+    <link rel="stylesheet" href="./assets/style.css" />
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"> -->
+  </head>
+
+  <header>
+    <h1>Weather Dashboard</h1>
+  </header>
+
+  <body>
+    <div class="weather">
+
+      <aside class="weatherSearch">
+        <label for="city">Search For A City:</label>
+        <input type="text" id="city" name="city" />
+        <button type="submit" id="search-button">Search</button>
+      </aside>
+
+      <div class="weatherToday">
+        <div class="weatherdetails">
+          <h2 class="cityresults">City Results:</h2>
+          <p class="date">Date:</p>
+          <div class="weatherCurrent">
+            <p class="weatherIndicatorHuminity"> <span id="value">10</span>%</p>
+            <p class="weatherIndicatorWind"><span id="value">North, 5</span> MpH</p>
+            <p class="weatherIndicatorTemp"><span id="value">74</span>&deg;F</p>
+          </div>
+        </div>
+
+      <div class="weatherForecast">
+        <article class="weatherItems">
+            <h3 class="weatherForcastDate">date</h3>
+            <img src="https://www.pngall.com/wp-content/uploads/11/Weather-PNG-HD-Image.png" alt="Cloudy Sun" class="weatherIcon">
+            <p class="weatherForcastHuminity"> <span id="value">10</span>%</p>
+            <p class="weatherForcastWind"><span id="value">North, 5</span> MpH</p>
+            <p class="weatherForcastTemp"><span id="value">74</span>&deg;F</p>
+        </article>
+        <article class="weatherItems">
+            <h3 class="weatherForcastDate">date</h3>
+            <img src="https://www.pngall.com/wp-content/uploads/11/Weather-PNG-HD-Image.png" alt="Cloudy Sun" class="weatherIcon">
+            <p class="weatherForcastHuminity"> <span id="value">10</span>%</p>
+            <p class="weatherForcastWind"><span id="value">North, 5</span> MpH</p>
+            <p class="weatherForcastTemp"><span id="value">74</span>&deg;F</p>
+        </article>
+        <article class="weatherItems">
+            <h3 class="weatherForcastDate">date</h3>
+            <img src="https://www.pngall.com/wp-content/uploads/11/Weather-PNG-HD-Image.png" alt="Cloudy Sun" class="weatherIcon">
+            <p class="weatherForcastHuminity"> <span id="value">10</span>%</p>
+            <p class="weatherForcastWind"><span id="value">North, 5</span> MpH</p>
+            <p class="weatherForcastTemp"><span id="value">74</span>&deg;F</p>
+        </article>
+        <article class="weatherItems">
+            <h3 class="weatherForcastDate">date</h3>
+            <img src="https://www.pngall.com/wp-content/uploads/11/Weather-PNG-HD-Image.png" alt="Cloudy Sun" class="weatherIcon">
+            <p class="weatherForcastHuminity"> <span id="value">10</span>%</p>
+            <p class="weatherForcastWind"><span id="value">North, 5</span> MpH</p>
+            <p class="weatherForcastTemp"><span id="value">74</span>&deg;F</p>
+        </article>
+        <article class="weatherItems">
+            <h3 class="weatherForcastDate">date</h3>
+            <img src="https://www.pngall.com/wp-content/uploads/11/Weather-PNG-HD-Image.png" alt="Cloudy Sun" class="weatherIcon">
+            <p class="weatherForcastHuminity"> <span id="value">10</span>%</p>
+            <p class="weatherForcastWind"><span id="value">North, 5</span> MpH</p>
+            <p class="weatherForcastTemp"><span id="value">74</span>&deg;F</p>
+        </article>
+
+      </div>
+    </div>
+
+    <script src="./assets/script.js"></script>
+  </body>
+</html>
