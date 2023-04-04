@@ -42,7 +42,7 @@ To create a functional and streamline weather website that can fethc raw data fo
 
 ## Installation:
 -Download and clone my repo through Github via https://github.com/nguyet33/raining-cats-and-dog  
--OR you can launch the live application at : https://nguyet33.github.io/my-password-maker.-/ 
+-OR you can launch the live application at : https://nguyet33.github.io/raining-cats-and-dog/
 
 ## Usage:
 Step 1: Open the application  
@@ -58,7 +58,7 @@ Jason Nguyen - UW Coding Bootcamp Student
     -Explained the benefit of jQry  
     <br />
 Nhan Duong - UW Coding Bootcamp Student  
-    -Assist in gaining testing Apis
+    -Assist in gaining testing Apis  
     <br />
 STACKOVERFLOW Community 
 
@@ -66,7 +66,9 @@ STACKOVERFLOW Community
 None
 
 ## Screenshot of Application 
-![Screenshot 2023-03-30 at 4 21 47 PM](https://user-images.githubusercontent.com/120419348/228986505-89520464-69b5-489c-9841-0e5bbf79eb45.png)
+![Screenshot 2023-04-04 at 4 56 12 PM](https://user-images.githubusercontent.com/120419348/229947609-059876c0-df65-4300-b1b2-8834f49d510b.png)  
+  
+![Screenshot 2023-04-04 at 4 56 23 PM](https://user-images.githubusercontent.com/120419348/229947614-23b413ae-ec2e-4ec8-b96d-5806e3b85e0c.png)
 
 ## Questions:
 - Github: [nguyet33](https://github.com/nguyet33)
