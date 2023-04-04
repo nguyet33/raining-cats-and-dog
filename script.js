@@ -1,99 +1,92 @@
-// Define API key and array to store saved searches
-const apiKey = "0b92fb01220df036df043816c3457d39";
-const savedSearches = [];
+// Define the API key and an array to store saved searches
+var apiKey = "1b18ce13c84e21faafb19c931bb29331";
+var savedSearches = [];
 
-// Function to add a new search history entry
-const addSearchHistoryEntry = (cityName) => {
-  // Remove any existing entry for this city
-  $(`.past-search:contains("${cityName}")`).remove();
+// Add a new search to the search history
+function addSearchToHistory(cityName) {
+  // If the search history already contains the city, remove it
+  $('.past-search:contains("' + cityName + '")').remove();
 
-  // Create new entry and container
-  const $entry = $("<p>").addClass("past-search").text(cityName);
-  const $container = $("<div>").addClass("past-search-container").append($entry);
+  // Create a new entry for the city in the search history
+  var entry = $("<p>").addClass("past-search").text(cityName);
+  var container = $("<div>").addClass("past-search-container").append(entry);
+  $("#search-history-container").append(container);
 
-  // Add entry to search history container
-  $("#search-history-container").append($container);
-
-  // Add city to saved searches array and local storage
+  // Add the city to the saved searches array and update local storage
   savedSearches.push(cityName);
   localStorage.setItem("savedSearches", JSON.stringify(savedSearches));
-
-  // Clear search input
-  $("#search-input").val("");
-};
-
-// Function to load search history from local storage
-const loadSearchHistory = () => {
-  const savedSearchHistory = localStorage.getItem("savedSearches");
-  if (savedSearchHistory) {
-    JSON.parse(savedSearchHistory).forEach(addSearchHistoryEntry);
-  }
-};
-
-// Function to update the current weather section
-const updateCurrentWeather = (data, cityName) => {
-  // Add city to search history
-  addSearchHistoryEntry(cityName);
-
-  // Update current weather container
-  const $container = $("#current-weather-container").addClass("current-weather-container");
-
-  // Update title with city name, date, and weather icon
-  const $title = $("#current-title").text(`${cityName} (${moment().format("M/D/YYYY")})`);
-  const $icon = $("#current-weather-icon").addClass("current-weather-icon")
-    .attr("src", `https://openweathermap.org/img/wn/${data.current.weather[0].icon}@2x.png`);
-
-  // Update temperature, humidity, and wind speed
-  $("#current-temperature").text(`Temperature: ${data.current.temp} \u00B0F`);
-  $("#current-humidity").text(`Humidity: ${data.current.humidity}%`);
-  $("#current-wind-speed").text(`Wind Speed: ${data.current.wind_speed} MPH`);
-
-  // Update UV index and color
-  const $uvIndex = $("#current-uv-index").text("UV Index:");
-  const $uvNumber = $("#current-number").text(data.current.uvi);
-  $uvNumber.removeClass("favorable moderate severe");
-  if (data.current.uvi <= 2) {
-    $uvNumber.addClass("favorable");
-  } else if (data.current.uvi <= 7) {
-    $uvNumber.addClass("moderate");
-  } else {
-    $uvNumber.addClass("severe");
-  }
-};
-
-// Function to update the five day forecast section
-function updateFiveDayForecast() {
-  // Get the user's location input
-  const location = document.getElementById('location-input').value;
-
-  // Get the forecast data for the location
-  const forecastData = getFiveDayForecast(location);
-
-  // Get the forecast element
-  const forecastElement = document.getElementById('five-day-forecast');
-
-  // Clear the existing forecast content
-  forecastElement.innerHTML = '';
-
-  // Loop through the forecast data and create HTML elements for each day
-  forecastData.forEach((day) => {
-    // Create the HTML elements for the day's forecast
-    const dayElement = document.createElement('div');
-    const dateElement = document.createElement('h3');
-    const tempElement = document.createElement('p');
-    const conditionsElement = document.createElement('p');
-
-    // Set the text content for the HTML elements
-    dateElement.textContent = day.date;
-    tempElement.textContent = `Temperature: ${day.temperature}°C`;
-    conditionsElement.textContent = `Conditions: ${day.conditions}`;
-
-    // Add the HTML elements to the day element
-    dayElement.appendChild(dateElement);
-    dayElement.appendChild(tempElement);
-    dayElement.appendChild(conditionsElement);
-
-    // Add the day element to the forecast element
-    forecastElement.appendChild(dayElement);
-  });
 }
+
+// Load the saved search history into the search history container
+function loadSearchHistory() {
+  var savedSearchHistory = localStorage.getItem("savedSearches");
+  if (savedSearchHistory) {
+    savedSearches = JSON.parse(savedSearchHistory);
+    savedSearches.forEach(addSearchToHistory);
+  }
+}
+
+// Get the current weather for a city and update the current weather section
+function updateCurrentWeather(cityName) {
+  fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}`)
+    .then(response => response.json())
+    .then(response => {
+      var lon = response.coord.lon;
+      var lat = response.coord.lat;
+
+      fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly,alerts&units=imperial&appid=${apiKey}`)
+        .then(response => response.json())
+        .then(response => {
+          addSearchToHistory(cityName);
+
+          $("#current-weather-container").addClass("current-weather-container");
+
+          var currentTitle = $("#current-title");
+          currentTitle.text(`${cityName} (${moment().format("M/D/YYYY")})`);
+          $("#current-weather-icon").attr("src", `https://openweathermap.org/img/wn/${response.current.weather[0].icon}@2x.png`);
+          $("#current-temperature").text(`Temperature: ${response.current.temp} \u00B0F`);
+          $("#current-humidity").text(`Humidity: ${response.current.humidity}%`);
+          $("#current-wind-speed").text(`Wind Speed: ${response.current.wind_speed} MPH`);
+          $("#current-uv-index").text("UV Index: ").append($("<span>").addClass("current-number").text(response.current.uvi).addClass(response.current.uvi <= 2 ? "favorable" : response.current.uvi <= 7 ? "moderate" : "severe"));
+        });
+    })
+    .catch(() => alert("We could not find the city you searched for. Try searching for a valid city."));
+}
+
+// Get the five day forecast for a city and update the five day forecast section
+function updateFiveDayForecast(cityName) {
+  fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}`)
+    .then(response => response.json())
+    .then(response => {
+      //...Skipped
+    })
+    .catch(() => alert("We could not find the city you searched for. Try searching for a valid city."));
+}
+
+// When the page is loaded, load the search history and add an event listener to the search button
+$(document).ready(function() {
+  // Load search history from local storage
+  var searchHistory = localStorage.getItem('searchHistory');
+  if (searchHistory) {
+    // Do something with search history data
+  }
+
+  // Add event listener to search button
+  $('#searchButton').on('click', function() {
+    // Do something when search button is clicked
+  });
+});
+
+// // called when a search history entry is clicked
+// $("#search-history-container").on("click", "p", function () {
+//   // get text (city name) of entry and pass it as a parameter to display weather conditions
+//   var previousCityName = $(this).text();
+//   currentWeatherSection(previousCityName);
+//   fiveDayForecastSection(previousCityName);
+
+//   //
+//   var previousCityClicked = $(this);
+//   previousCityClicked.remove();
+// });
+
+// loadSearchHistory();
